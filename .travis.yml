@@ -7,3 +7,16 @@ before_install:
 
 script:
   - docker run -e CI=true nchikh/docker-react npm run test -- --coverage
+
+deploy:
+  provider: elsticbeanstalk
+  region: "us-west-2"
+  app: "docker"
+  env: "Docker-env"
+  bucket-name: "elsticbeanstalk-us-west-2-xxxxxxxxxxxxxx"
+  bucket-path: "docker"
+  on:
+    branch: master
+  access_key_id: $AWS_ACCESS_KEY
+  secret_acces_key:
+    secure: "$AWS_SECRET_KEY"
